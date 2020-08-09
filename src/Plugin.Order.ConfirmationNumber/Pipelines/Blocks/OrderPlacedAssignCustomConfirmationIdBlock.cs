@@ -18,10 +18,28 @@ namespace Plugin.Bootcamp.Exercises.Order.ConfirmationNumber.Blocks
 
             Contract.Requires(arg != null);
             Contract.Requires(context != null);
+            Condition.Requires(arg).IsNotNull($"{this.Name} : the name cannot be null");
+            OrderPlacedAssignCustomConfirmationIdBlock ConfirmationIdBlock = this;
+            string uniquecode = string.Empty;
             /* STUDENT: Complete this method to set the order number as specified in the requirements */
-             
-
+            // Order.ConfirmationNumber
+            try
+            {
+                uniquecode = this.GetCustomerConfirmationNumber(context);
+            }
+            catch (Exception ex)
+            {
+                context.CommerceContext.LogException((ConfirmationIdBlock.Name) + "- UniqueCodeGenerationException", ex);
+                throw;
+            }
+            arg.OrderConfirmationId = uniquecode;
             return Task.FromResult<Sitecore.Commerce.Plugin.Orders.Order>(arg);
+        }
+        private string GetCustomerConfirmationNumber(CommercePipelineExecutionContext context )
+        {
+            var policy = context.GetPolicy<OrderNumberPolicy>();
+            return policy.IncludeDate == true ? $"{policy.Prefix},{DateTime.Today.ToString("d", System.Globalization.CultureInfo.InvariantCulture)},{policy.Suffix},{Guid.NewGuid().ToString()}" :
+                                              $"{policy.Prefix},{string.Empty},{policy.Suffix},{Guid.NewGuid().ToString()}";
         }
     }
 

@@ -21,7 +21,7 @@
     "UseHttpsInKestrel": true,
     "SslPort": 5000,
     "SslPfxPath": "wwwroot/localhost.pfx",
-    "SslPfxPassword": "sitecore"
+    "SslPfxPassword": "Sitecore@123"
   },
   "ApplicationInsights": {
     "InstrumentationKey": ""

@@ -19,7 +19,9 @@ namespace Plugin.Bootcamp.Exercises.Order.ConfirmationNumber
 
             /* STUDENT: Add the necessary method to configure the appropriate pipeline
              * to fulfill the specified requirements */
-
+            services.Sitecore().Pipelines(config =>
+                    config.ConfigurePipeline<IOrderPlacedPipeline>(configure => { configure.Replace<OrderPlacedAssignConfirmationIdBlock, OrderPlacedAssignCustomConfirmationIdBlock>();  })
+                    );
             services.RegisterAllCommands(assembly);
         }
     }
