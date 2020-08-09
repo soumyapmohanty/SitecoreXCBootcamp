@@ -35,6 +35,7 @@ namespace Plugin.Bootcamp.Exercises.Order.ConfirmationNumber.Blocks
             arg.OrderConfirmationId = uniquecode;
             return Task.FromResult<Sitecore.Commerce.Plugin.Orders.Order>(arg);
         }
+        // Get unique Confirmation Number based on date
         private string GetCustomerConfirmationNumber(CommercePipelineExecutionContext context )
         {
             var policy = context.GetPolicy<OrderNumberPolicy>();

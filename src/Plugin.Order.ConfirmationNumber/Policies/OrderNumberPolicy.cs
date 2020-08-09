@@ -14,6 +14,7 @@ namespace Plugin.Bootcamp.Exercises.Order.ConfirmationNumber.Policies
 
         }
         /* STUDENT: Add read/write properties as specified in the requirements */
+
         public string Prefix { get; set; }
         public string Suffix { get; set; }
         public bool IncludeDate { get; set; }
