@@ -19,7 +19,22 @@ namespace Plugin.Bootcamp.Exercises.Catalog.WarrantyInformation.Pipelines.Blocks
             Condition.Requires(arg).IsNotNull($"{Name}: The argument cannot be null.");
 
             /* STUDENT: Complete the Run method as specified in the requirements */
-
+            // Check  for the  current version
+            if (string.IsNullOrEmpty(arg?.Name) || !arg.Name.Equals("WarrantyNotes", StringComparison.OrdinalIgnoreCase))
+            {
+                return Task.FromResult(arg);
+            }
+            var actionPolicy = arg.GetPolicy<ActionsPolicy>();
+            actionPolicy.Actions.Add(
+                                new EntityActionView
+                                {
+                                    Name = "WarrantyNotes-Edit",
+                                    DisplayName ="Edit Sellable Item warranty notes",
+                                    Description ="Edit Sellable Item warranty notes",
+                                    IsEnabled =true,
+                                    EntityView = arg.Name,
+                                    Icon ="edit"
+                                });
             return Task.FromResult(arg);
         }
     }
