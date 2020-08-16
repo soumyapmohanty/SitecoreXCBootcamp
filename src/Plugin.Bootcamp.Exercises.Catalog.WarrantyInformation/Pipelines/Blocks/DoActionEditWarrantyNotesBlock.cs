@@ -33,12 +33,11 @@ namespace Plugin.Bootcamp.Exercises.Catalog.WarrantyInformation.Pipelines.Blocks
             {
                // return Task.FromResult(arg);
                 return arg;
-
             }
             // Get SellableItem
             var entity = context.CommerceContext.GetObject<SellableItem>(x=> x.Id.Equals(arg.EntityId));
             // Validate if Entity is not null
-            if(entity!= null)
+            if(entity== null)
             {
                 //return Task.FromResult(arg);
                 return arg;
@@ -46,9 +45,9 @@ namespace Plugin.Bootcamp.Exercises.Catalog.WarrantyInformation.Pipelines.Blocks
             // Get warranty components details  from the SelleableItem
             var component = entity.GetComponent<WarrantyNotesComponent>(arg.EntityId);
             // Map views properties to the  component 
-            component.WarrantyInformation = arg.Properties.FirstOrDefault(x => x.Name.Equals(nameof(WarrantyNotesComponent.WarrantyInformation),StringComparison.OrdinalIgnoreCase)).Value.ToString();
-            component.NoOfYears = Int32.Parse(arg.Properties.FirstOrDefault(x => x.Name.Equals(nameof(WarrantyNotesComponent.NoOfYears), StringComparison.OrdinalIgnoreCase)).Value);
-           await this._commerceCommander.Pipeline<IEntityPersistedPipeline>().Run(new PersistEntityArgument(entity),context);
+            component.WarrantyInformation = arg.Properties.FirstOrDefault(x => x.Name.Equals(nameof(WarrantyNotesComponent.WarrantyInformation),StringComparison.OrdinalIgnoreCase))?.Value;
+            component.NoOfYears = Int32.Parse(arg.Properties.FirstOrDefault(x => x.Name.Equals(nameof(WarrantyNotesComponent.NoOfYears), StringComparison.OrdinalIgnoreCase))?.Value);
+           await this._commerceCommander.Pipeline<IPersistEntityPipeline>().Run(new PersistEntityArgument(entity),context);
             // return Task.FromResult(arg);
             return arg;
 

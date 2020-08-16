@@ -22,14 +22,18 @@ namespace Plugin.Bootcamp.Exercises.VatTax
             services.RegisterAllPipelineBlocks(assembly);
 
             services.Sitecore().Pipelines(config => config
-                /* STUDENT: Add code here to configure the necessary pipelines to show your navigation, present your
-                 * dashboard, present your add form, and handle your actions. */
+               /* STUDENT: Add code here to configure the necessary pipelines to show your navigation, present your
+                * dashboard, present your add form, and handle your actions. */
 
                .ConfigurePipeline<ICalculateCartLinesPipeline>(d =>
                 {
                     d.Replace<Sitecore.Commerce.Plugin.Tax.CalculateCartLinesTaxBlock, CalculateCartLinesTaxBlockCustom>();
-                }));
-
+                })
+             .ConfigurePipeline<IBizFxNavigationPipeline>(c =>
+              {
+                  c.Add<GetVatTaxNavigationViewBlock>().After<GetNavigationViewBlock>();
+                 // c.Add<GetVatTaxDashboardViewBlock>().After<GetVatTaxNavigationViewBlock>();
+              }));
             services.RegisterAllCommands(assembly);
         }
     }

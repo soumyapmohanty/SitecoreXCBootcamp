@@ -33,6 +33,7 @@ namespace Plugin.Bootcamp.Exercises.Catalog.WarrantyInformation.Pipelines.Blocks
                                     Description ="Edit Sellable Item warranty notes",
                                     IsEnabled =true,
                                     EntityView = arg.Name,
+                                    //EntityId=arg.EntityId,
                                     Icon ="edit"
                                 });
             return Task.FromResult(arg);

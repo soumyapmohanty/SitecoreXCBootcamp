@@ -76,13 +76,14 @@ namespace Plugin.Bootcamp.Exercises.Catalog.WarrantyInformation.Pipelines.Blocks
             /* Validate if the Item is SellableItem &  HasWarrantyComponent & isConnectSellableItemView*/
             /* Get the Item Details */
             if (sellableItem != null && sellableItem.HasComponent<WarrantyNotesComponent>(variantId)
-                || isConnectSellableItemView || isWarantyNotesView )
+                || isConnectSellableItemView || isEditView )
             {
                 var component = sellableItem.GetComponent<WarrantyNotesComponent>(variantId);
                 componentView.Properties.Add(
                     new ViewProperty {
                         DisplayName="Description",
-                        RawValue ="Golden",
+                        Name = nameof(WarrantyNotesComponent.WarrantyInformation),
+                        RawValue =component.WarrantyInformation,
                         IsReadOnly = !isEditView,
                         IsRequired=false
                     });
@@ -90,6 +91,7 @@ namespace Plugin.Bootcamp.Exercises.Catalog.WarrantyInformation.Pipelines.Blocks
                   new ViewProperty
                   {
                       DisplayName = "Warranty Terms  In(Years)",
+                      Name = nameof(WarrantyNotesComponent.NoOfYears),
                       RawValue = component.NoOfYears,
                       IsReadOnly = !isEditView,
                       IsRequired = false
