@@ -8,7 +8,6 @@
         public VatTaxEntity()
         {
             /* STUDENT: Write the body of the default constructor */
-            //this.Components = new List<Component>();
             this.DateCreated = DateTime.UtcNow;
             this.DateUpdated = this.DateCreated;
             this.CountryCode = "US";
