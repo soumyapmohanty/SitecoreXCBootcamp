@@ -2,27 +2,28 @@
 {
     using System;
     using System.Collections.Generic;
-
     using Sitecore.Commerce.Core;
-    
     public class VatTaxEntity : CommerceEntity
     {
         public VatTaxEntity()
         {
             /* STUDENT: Write the body of the default constructor */
+            //this.Components = new List<Component>();
+            this.DateCreated = DateTime.UtcNow;
+            this.DateUpdated = this.DateCreated;
+            this.CountryCode = "US";
             this.TaxTag = string.Empty;
-            this.TaxPct = 1;
-            this.CountryCode = string.Empty;
+            this.TaxPct = 0M;
         }
 
         public VatTaxEntity(string id): this()
         {
+            this.Id = id;
             /* STUDENT: Write the body of the constructor that is called with the id */
         }
-
         /* STUDENT: Add read/write properties to the class to meet the requirements */
         public string TaxTag { get; set; }
-        public int TaxPct { get; set; }
+        public decimal TaxPct { get; set; }
         public string CountryCode { get; set; }
 
     }

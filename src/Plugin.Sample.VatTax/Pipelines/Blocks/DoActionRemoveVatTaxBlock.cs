@@ -24,7 +24,20 @@ namespace Plugin.Bootcamp.Exercises.VatTax.EntityViews
             Contract.Requires(context != null);
 
             /* STUDENT: Add the necessary code to remove the selected Vat Tax configuration */
+            if (entityView == null
+               || !entityView.Action.Equals("VatTaxDashboard-RemoveDashboardEntity", StringComparison.OrdinalIgnoreCase))
+            {
+                return entityView;
+            }
 
+            try
+            {
+                await this._commerceCommander.Command<DeleteEntityCommand>() .Process(context.CommerceContext, entityView.ItemId).ConfigureAwait(false);
+            }
+            catch (ArgumentNullException ex)
+            {
+                context.Logger.LogError($"Catalog.DoActionRemoveDashboardEntity.Exception: Message={ex.Message}");
+            }
             return entityView;
         }
     }

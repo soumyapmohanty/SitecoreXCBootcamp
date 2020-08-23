@@ -1,4 +1,5 @@
-﻿using Sitecore.Commerce.Core;
+﻿using Plugin.Bootcamp.Exercises.VatTax.Entities;
+using Sitecore.Commerce.Core;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,13 +10,8 @@ namespace Plugin.Bootcamp.Exercises.VatTax.Policies
 {
     public class KnowVatTaxViewsPolicy : Policy
     {
-        string  vatTaxDashboardName = "Vat Tax Dashboard";
-        
-        public KnowVatTaxViewsPolicy() 
-        {
-            this.VatTaxDashBoard= vatTaxDashboardName;
-        }
-
-        public string VatTaxDashBoard { get; set; }
+        public string Master { get; set; } = nameof(Master);
+        public string VatTaxDashboard { get; internal set; } = nameof(VatTaxDashboard);
+        // public VatTaxEntity VatTax { get; set; }
     }
 }

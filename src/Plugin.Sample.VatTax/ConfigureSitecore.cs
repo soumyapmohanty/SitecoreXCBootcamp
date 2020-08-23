@@ -5,6 +5,7 @@ using Sitecore.Commerce.Core;
 using Sitecore.Commerce.EntityViews;
 using Sitecore.Commerce.Plugin.BusinessUsers;
 using Sitecore.Commerce.Plugin.Carts;
+using Sitecore.Commerce.Plugin.Catalog;
 using Sitecore.Framework.Configuration;
 using Sitecore.Framework.Pipelines.Definitions.Extensions;
 using System.Reflection;
@@ -20,20 +21,36 @@ namespace Plugin.Bootcamp.Exercises.VatTax
             var assembly = Assembly.GetExecutingAssembly();
 
             services.RegisterAllPipelineBlocks(assembly);
-
             services.Sitecore().Pipelines(config => config
-               /* STUDENT: Add code here to configure the necessary pipelines to show your navigation, present your
-                * dashboard, present your add form, and handle your actions. */
-
-               .ConfigurePipeline<ICalculateCartLinesPipeline>(d =>
-                {
-                    d.Replace<Sitecore.Commerce.Plugin.Tax.CalculateCartLinesTaxBlock, CalculateCartLinesTaxBlockCustom>();
-                })
-             .ConfigurePipeline<IBizFxNavigationPipeline>(c =>
-              {
-                  c.Add<GetVatTaxNavigationViewBlock>().After<GetNavigationViewBlock>();
-                 // c.Add<GetVatTaxDashboardViewBlock>().After<GetVatTaxNavigationViewBlock>();
-              }));
+            /* STUDENT: Add code here to configure the necessary pipelines to show your navigation, present your
+            * dashboard, present your add form, and handle your actions. */
+                 
+            .ConfigurePipeline<IDoActionPipeline>(c =>
+            {
+                c.Add<DoActionAddVatTaxBlock>().After<ValidateEntityVersionBlock>()
+                    .Add<DoActionRemoveVatTaxBlock>().After<ValidateEntityVersionBlock>();
+            })
+            .ConfigurePipeline<IBizFxNavigationPipeline>(c =>
+            {
+                c.Add<GetVatTaxNavigationViewBlock>().After<GetNavigationViewBlock>();
+            })
+            .ConfigurePipeline<ICalculateCartLinesPipeline>(d =>
+            {
+            d.Replace<Sitecore.Commerce.Plugin.Tax.CalculateCartLinesTaxBlock, CalculateCartLinesTaxBlockCustom>();
+            }) 
+            .ConfigurePipeline<IGetEntityViewPipeline>(c =>
+            {
+                c.Add<GetVatTaxDashboardViewBlock>().Before<IFormatEntityViewPipeline>();
+                    
+            })
+            .ConfigurePipeline<IGetEntityViewPipeline>(c =>
+            {
+                c .Add<FormAddDashboardEntity>().Before<IFormatEntityViewPipeline>();
+            })
+            .ConfigurePipeline<IFormatEntityViewPipeline>(c =>
+            {
+            c.Add<PopulateVatTaxDashboardActionsBlock>().After<PopulateEntityViewActionsBlock>();
+            }));
             services.RegisterAllCommands(assembly);
         }
     }

@@ -23,13 +23,13 @@ namespace Plugin.Bootcamp.Exercises.VatTax.EntityViews
 
             /* STUDENT: Add the necessary code to show your new Vat Tax dashboard in the Business Tools navigation */
            
-            var vatTaxDashboard = context.GetPolicy<KnowVatTaxViewsPolicy>().VatTaxDashBoard;
+            var vatTaxDashboard = context.GetPolicy<KnowVatTaxViewsPolicy>().VatTaxDashboard;
             var vatTaxDashboardView = new EntityView()
             {
                 Name = vatTaxDashboard,
                 DisplayName= "Vat Tax",
                 ItemId = vatTaxDashboard,
-                //Icon ="add", //Views.Constants.Icons.MarketStand,
+                Icon ="cubes",
                 DisplayRank = 9
             };
 

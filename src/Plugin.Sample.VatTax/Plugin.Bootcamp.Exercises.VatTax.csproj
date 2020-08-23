@@ -19,4 +19,10 @@
     <PackageReference Include="Sitecore.Commerce.Plugin.Tax" Version="5.0.*" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Reference Include="Sitecore.Commerce.XA.Feature.Catalog">
+      <HintPath>..\..\lib\Sitecore.Commerce.XA.Feature.Catalog.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 </Project>
