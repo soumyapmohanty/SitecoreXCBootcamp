@@ -40,8 +40,7 @@ namespace Plugin.Bootcamp.Exercises.VatTax
             }) 
             .ConfigurePipeline<IGetEntityViewPipeline>(c =>
             {
-                c.Add<GetVatTaxDashboardViewBlock>().Before<IFormatEntityViewPipeline>();
-                    
+                c.Add<GetVatTaxDashboardViewBlock>().Before<IFormatEntityViewPipeline>();                    
             })
             .ConfigurePipeline<IGetEntityViewPipeline>(c =>
             {
