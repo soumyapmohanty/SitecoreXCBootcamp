@@ -28,7 +28,21 @@ namespace Plugin.Bootcamp.Exercises.Order.Export.Pipelines.Blocks
             /* STUDENT: Complete the body of this method. Check that the order is valid,
              * and that it has not already been exported,
              * then export it to a file based on the configuration provided in the policy. */
-            
+            var exportComponent = order.GetComponent<ExportedOrderComponent>();
+
+            //if( exportComponent.DateExported )
+            exportComponent.DateExported = DateTime.Now;
+
+            var orderAsString = JsonConvert.SerializeObject(order);
+
+            var orderNumber = order.FriendlyId;
+
+            using (StreamWriter sw = new StreamWriter($"c:\\Temp\\order_{order.OrderConfirmationId}.json"))
+            {
+                await sw.WriteAsync(orderAsString).ConfigureAwait(false);
+            }
+
+            var persistEntityArgument = await _persistEntityPipeline.Run(new PersistEntityArgument(order), context).ConfigureAwait(false);
             return order;
         }
     }

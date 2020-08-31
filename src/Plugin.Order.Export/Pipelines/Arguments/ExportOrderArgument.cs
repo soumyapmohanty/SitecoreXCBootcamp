@@ -11,7 +11,8 @@ namespace Plugin.Bootcamp.Exercises.Order.Export.Pipelines.Arguments
         {
             /* STUDENT: Complete the constructor. You should check that a valid orderId
              * has been provided and set the OrderId property. */
-            
+            Condition.Requires<string>(orderId, "orderId").IsNotNullOrEmpty();
+            this.OrderId = orderId;
         }
     }
 }

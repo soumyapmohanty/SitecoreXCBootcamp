@@ -23,9 +23,15 @@ namespace Plugin.Bootcamp.Exercises.Order.Export.Pipelines.Blocks
             Contract.Requires(context != null);
 
             XC.Order order = await this._findEntityPipeline.Run(new FindEntityArgument(typeof(XC.Order), arg.OrderId, false), context).ConfigureAwait(false) as XC.Order;
-
             /* STUDENT: Add error handling to deal with the situation where no order was found. */
-
+            if (order == null)
+            {
+                CommercePipelineExecutionContext executionContext = context;
+                string reason = await context.CommerceContext.AddMessage(context.GetPolicy<KnownResultCodes>().Error, "OrderNotFound", new object[1] { (object) arg.OrderId}, string.Format("Order {0} was not found.", (object)arg.OrderId)).ConfigureAwait(false);
+                executionContext.Abort(reason, (object)context);
+                executionContext = (CommercePipelineExecutionContext)null;
+                return (XC.Order)null;
+            }
             return order;
         }
     }
