@@ -37,7 +37,7 @@ namespace Plugin.Bootcamp.Exercises.Order.Export.Minions
             foreach (var commerceEnty in (await this.GetListItems<XC.Order>(Policy.ListToWatch, Convert.ToInt32(listCount)).ConfigureAwait(false)))
             {
 
-                //this.Logger.LogDebug(string.Format("{0}-Reviewing Pending Order: {1}", commerceEnty.Name, commerceEnty.Id), Array.Empty<object>());
+                this.Logger.LogDebug(string.Format("{0}-Reviewing Pending Order: {1}", commerceEnty.Name, commerceEnty.Id), Array.Empty<object>());
 
                 var minionPipeline = ExportOrderPipeline;
                 var ordersMinionArgument = new ExportOrderArgument(commerceEnty.Id);

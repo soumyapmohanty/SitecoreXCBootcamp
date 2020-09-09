@@ -32,11 +32,10 @@ namespace Plugin.Bootcamp.Exercises.Order.Export
               {
                   configure.Add<OrdersEntityViewBlock>().After<GetOrderLinesViewBlock>();
               })
-             .ConfigurePipeline<IExportOrderMinionPipeline>(configure =>
-                    {
-                        configure.Add<RetrieveOrderBlock>().Add<ExportOrderToFileBlock>();
-                    })
-             );
+             .AddPipeline<IExportOrderMinionPipeline,ExportOrderMinionPipeline>(configure =>
+             {
+                configure.Add<RetrieveOrderBlock>().Add<ExportOrderToFileBlock>();
+             }));
              
 
             

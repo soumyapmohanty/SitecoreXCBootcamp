@@ -29,15 +29,11 @@ namespace Plugin.Bootcamp.Exercises.Order.Export.Pipelines.Blocks
              * and that it has not already been exported,
              * then export it to a file based on the configuration provided in the policy. */
             var exportComponent = order.GetComponent<ExportedOrderComponent>();
-
-            //if( exportComponent.DateExported )
             exportComponent.DateExported = DateTime.Now;
-
             var orderAsString = JsonConvert.SerializeObject(order);
-
             var orderNumber = order.FriendlyId;
-
-            using (StreamWriter sw = new StreamWriter($"c:\\Temp\\order_{order.OrderConfirmationId}.json"))
+            var exportFileLocation = new Plugin.Bootcamp.Exercises.Order.Export.Policies.OrderExportPolicy().ExportLocation;
+            using (StreamWriter sw = new StreamWriter($"{exportFileLocation}order_{order.Id}.json"))
             {
                 await sw.WriteAsync(orderAsString).ConfigureAwait(false);
             }
