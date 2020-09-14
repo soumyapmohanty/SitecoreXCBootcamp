@@ -39,7 +39,7 @@ namespace Plugin.Bootcamp.Exercises.Order.ConfirmationNumber.Blocks
         private string GetCustomerConfirmationNumber(CommercePipelineExecutionContext context )
         {
             var policy = context.GetPolicy<OrderNumberPolicy>();
-            return policy.IncludeDate == true ? $"{policy.Prefix},{DateTime.Today.ToString("d", System.Globalization.CultureInfo.InvariantCulture)},{policy.Suffix},{Guid.NewGuid().ToString()}" :
+            return policy.IncludeDate == true ? $"{policy.Prefix},{DateTime.Today.ToString("d", System.Globalization.CultureInfo.InvariantCulture).Replace('/','-')},{policy.Suffix},{Guid.NewGuid().ToString()}" :
                                               $"{policy.Prefix},{string.Empty},{policy.Suffix},{Guid.NewGuid().ToString()}";
         }
     }

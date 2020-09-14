@@ -28,8 +28,7 @@ namespace Plugin.Bootcamp.Exercises.Catalog.WarrantyInformation
             services.RegisterAllPipelineBlocks(assembly);
             services.RegisterAllCommands(assembly);
 
-            services.Sitecore().Pipelines(config => config
-
+               services.Sitecore().Pipelines(config => config
                 .ConfigurePipeline<IGetEntityViewPipeline>(c =>
                 {
                     c.Add<GetWarrantyNotesViewBlock>().After<GetSellableItemDetailsViewBlock>();
@@ -41,8 +40,7 @@ namespace Plugin.Bootcamp.Exercises.Catalog.WarrantyInformation
                 .ConfigurePipeline<IDoActionPipeline>(c =>
                 {
                     c.Add<DoActionEditWarrantyNotesBlock>().After<ValidateEntityVersionBlock>();
-                })
-            );
+                })); 
         }
     }
 }

@@ -12,6 +12,6 @@ namespace Plugin.Bootcamp.Exercises.VatTax.Policies
     {
         public string Master { get; set; } = nameof(Master);
         public string VatTaxDashboard { get; internal set; } = nameof(VatTaxDashboard);
-        // public VatTaxEntity VatTax { get; set; }
+       
     }
 }

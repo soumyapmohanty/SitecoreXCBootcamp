@@ -21,14 +21,14 @@ namespace Plugin.Bootcamp.Exercises.VatTax
             var assembly = Assembly.GetExecutingAssembly();
 
             services.RegisterAllPipelineBlocks(assembly);
-            services.Sitecore().Pipelines(config => config
+
             /* STUDENT: Add code here to configure the necessary pipelines to show your navigation, present your
             * dashboard, present your add form, and handle your actions. */
-                 
+             services.Sitecore().Pipelines(config => config
             .ConfigurePipeline<IDoActionPipeline>(c =>
             {
                 c.Add<DoActionAddVatTaxBlock>().After<ValidateEntityVersionBlock>()
-                    .Add<DoActionRemoveVatTaxBlock>().After<ValidateEntityVersionBlock>();
+                 .Add<DoActionRemoveVatTaxBlock>().After<ValidateEntityVersionBlock>();
             })
             .ConfigurePipeline<IBizFxNavigationPipeline>(c =>
             {
@@ -44,7 +44,7 @@ namespace Plugin.Bootcamp.Exercises.VatTax
             })
             .ConfigurePipeline<IGetEntityViewPipeline>(c =>
             {
-                c .Add<FormAddDashboardEntity>().Before<IFormatEntityViewPipeline>();
+                c.Add<FormAddDashboardEntity>().Before<IFormatEntityViewPipeline>();
             })
             .ConfigurePipeline<IFormatEntityViewPipeline>(c =>
             {

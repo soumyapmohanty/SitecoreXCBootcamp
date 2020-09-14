@@ -14,7 +14,7 @@ using Plugin.Bootcamp.Exercises.Catalog.WarrantyInformation.Components;
 namespace Plugin.Bootcamp.Exercises.Catalog.WarrantyInformation.Pipelines.Blocks
 {
     [PipelineDisplayName("DoActionEditWarrantyNotesBlock")]
-    class DoActionEditWarrantyNotesBlock : PipelineBlock<EntityView, EntityView, CommercePipelineExecutionContext>
+    public  class DoActionEditWarrantyNotesBlock : PipelineBlock<EntityView, EntityView, CommercePipelineExecutionContext>
     {
         private readonly CommerceCommander _commerceCommander;
 
